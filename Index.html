@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Surprise</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Quicksand:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(rgba(25, 25, 112, 0.85), rgba(70, 130, 180, 0.9)), 
+                        url('YOUR_PHOTO_URL_HERE') center/cover no-repeat fixed;
+            /* REPLACE 'YOUR_PHOTO_URL_HERE' with actual photo URL */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle floating hearts animation */
+        .heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 20px;
+            animation: float 15s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        .container {
+            background: rgba(10, 10, 60, 0.4);
+            backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(100, 149, 237, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
+                        0 0 50px rgba(30, 144, 255, 0.1);
+            max-width: 500px;
+            width: 90%;
+            z-index: 1;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #e6f2ff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #b3d9ff;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        .input-group {
+            margin: 30px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            color: #cce5ff;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 18px 20px;
+            font-size: 1.2rem;
+            font-family: 'Quicksand', sans-serif;
+            border: 2px solid rgba(100, 149, 237, 0.5);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-align: center;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input[type="text"]:focus {
+            border-color: #6495ed;
+            box-shadow: 0 0 20px rgba(100, 149, 237, 0.5);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        input[type="text"]::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #4169e1, #6495ed);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.2rem;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 500;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(65, 105, 225, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(65, 105, 225, 0.4);
+            background: linear-gradient(135deg, #4a74f0, #6fa3ff);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .welcome-message {
+            margin-top: 30px;
+            font-size: 1.8rem;
+            color: #ffeb3b;
+            min-height: 60px;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .typewriter {
+            border-right: 3px solid #ffeb3b;
+            padding-right: 5px;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { border-color: #ffeb3b; }
+            50% { border-color: transparent; }
+        }
+
+        footer {
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+            z-index: 1;
+        }
+
+        .audio-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border: none;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .audio-control:hover {
+            background: rgba(0, 0, 0, 0.5);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+                width: 95%;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            input[type="text"], .submit-btn {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background hearts -->
+    <div id="hearts-container"></div>
+
+    <div class="container">
+        <h1>A Birthday Surprise</h1>
+        <p class="subtitle">Something special awaits...</p>
+        
+        <div class="input-group">
+            <label for="password">Enter password here</label>
+            <input type="text" id="password" placeholder="" autocomplete="off">
+            <button class="submit-btn" id="submitBtn">Enter</button>
+        </div>
+        
+        <div class="welcome-message" id="welcomeMessage"></div>
+    </div>
+
+    <footer>
+        Made with 💙
+    </footer>
+
+    <button class="audio-control" id="audioControl">
+        🔊
+    </button>
+
+    <!-- Audio for background music -->
+    <!-- REPLACE 'YOUR_MUSIC_URL_HERE' with actual music URL -->
+    <audio id="bgMusic" loop>
+        <source src="YOUR_MUSIC_URL_HERE" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        // Create floating hearts
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts-container');
+            const heartCount = 20;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDelay = Math.random() * 15 + 's';
+                heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+                heartsContainer.appendChild(heart);
+            }
+        }
+
+        // Password logic
+        const MAIN_PASSWORD = "deborah";
+        const BYPASS_PASSWORD = "sonder";
+        const TARGET_DATE = new Date('December 31, 2026 00:00:00');
+        
+        // Typewriter effect
+        function typeWriter(text, element, speed = 100) {
+            return new Promise((resolve) => {
+                let i = 0;
+                element.innerHTML = '';
+                element.style.opacity = '1';
+                element.classList.add('typewriter');
+                
+                function type() {
+                    if (i < text.length) {
+                        element.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(type, speed);
+                    } else {
+                        element.classList.remove('typewriter');
+                        resolve();
+                    }
+                }
+                type();
+            });
+        }
+
+        // Check date and redirect
+        function checkDateAndRedirect() {
+            const currentDate = new Date();
+            
+            if (currentDate >= TARGET_DATE) {
+                // If date is on or after Dec 31, 2026, go directly to main page
+                setTimeout(() => {
+                    window.location.href = 'main.html';
+                }, 1500);
+            } else {
+                // If before Dec 31, 2026, go to countdown
+                setTimeout(() => {
+                    window.location.href = 'countdown.html';
+                }, 1500);
+            }
+        }
+
+        // Handle password submission
+        function handleSubmit() {
+            const passwordInput = document.getElementById('password');
+            const password = passwordInput.value.trim().toLowerCase();
+            const welcomeMessage = document.getElementById('welcomeMessage');
+            
+            if (password === MAIN_PASSWORD) {
+                // Correct main password
+                passwordInput.disabled = true;
+                document.getElementById('submitBtn').disabled = true;
+                
+                typeWriter('Welcome and happy birthday', welcomeMessage)
+                    .then(() => {
+                        checkDateAndRedirect();
+                    });
+                    
+            } else if (password === BYPASS_PASSWORD) {
+                // Bypass password - go directly to main page
+                setTimeout(() => {
+                    window.location.href = 'main.html';
+                }, 300);
+                
+            } else {
+                // Wrong password
+                setTimeout(() => {
+                    window.location.href = 'denied.html';
+                }, 500);
+            }
+        }
+
+        // Audio control
+        function setupAudio() {
+            const bgMusic = document.getElementById('bgMusic');
+            const audioControl = document.getElementById('audioControl');
+            
+            // Try to autoplay with user interaction fallback
+            function playAudio() {
+                bgMusic.volume = 0.4;
+                bgMusic.play().catch(e => {
+                    console.log("Autoplay prevented, waiting for user interaction");
+                    audioControl.textContent = "🔇";
+                });
+            }
+            
+            // Try autoplay
+            playAudio();
+            
+            // Audio control button
+            audioControl.addEventListener('click', () => {
+                if (bgMusic.paused) {
+                    bgMusic.play();
+                    audioControl.textContent = "🔊";
+                } else {
+                    bgMusic.pause();
+                    audioControl.textContent = "🔇";
+                }
+            });
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            createHearts();
+            setupAudio();
+            
+            // Submit button click
+            document.getElementById('submitBtn').addEventListener('click', handleSubmit);
+            
+            // Enter key press in input field
+            document.getElementById('password').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    handleSubmit();
+                }
+            });
+            
+            // Auto-focus on password input
+            document.getElementById('password').focus();
+        });
+    </script>
+</body>
+  </html>

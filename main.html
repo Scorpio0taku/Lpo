@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;500&family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #4169e1;
+            --light-blue: #6495ed;
+            --soft-pink: #ffb6c1;
+            --gold: #ffd700;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(180deg, #0a0a1a 0%, #1a1a3a 100%);
+            color: white;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* Opening Section */
+        .opening-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(rgba(10, 10, 40, 0.9), rgba(30, 30, 80, 0.7)),
+                        url('YOUR_OPENING_PHOTO_URL_HERE') center/cover no-repeat;
+            /* REPLACE 'YOUR_OPENING_PHOTO_URL_HERE' with photo URL */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .birthday-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            animation: titleGlow 3s infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); }
+            to { text-shadow: 0 2px 20px rgba(255, 215, 0, 0.3), 0 0 30px rgba(255, 215, 0, 0.2); }
+        }
+
+        .date {
+            font-size: 1.5rem;
+            color: #b3d9ff;
+            margin-bottom: 40px;
+            letter-spacing: 3px;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--light-blue);
+            font-size: 1.2rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        /* Letter Section */
+        .letter-section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            margin-top: -50px;
+            position: relative;
+            z-index: 2;
+            border: 1px solid rgba(100, 149, 237, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .letter-container {
+            position: relative;
+            min-height: 400px;
+        }
+
+        .letter-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #f0f8ff;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            opacity: 0.95;
+            border-left: 3px solid var(--soft-pink);
+            padding-left: 30px;
+            margin-bottom: 40px;
+        }
+
+        .typewriter-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1.8rem;
+            background: var(--soft-pink);
+            margin-left: 2px;
+            animation: blink 1s infinite;
+            vertical-align: text-bottom;
+        }
+
+        /* Emoji Section */
+        .emoji-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 40px 0;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+        }
+
+        .emoji {
+            font-size: 3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+        }
+
+        .emoji:hover {
+            transform: scale(1.2) rotate(10deg);
+            filter: drop-shadow(0 10px 20px rgba(255, 182, 193, 0.3));
+        }
+
+        .emoji-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            z-index: 1000;
+            display: none;
+            font-size: 1.2rem;
+            text-align: center;
+            border: 1px solid var(--soft-pink);
+            max-width: 300px;
+        }
+
+        /* Photo Collage */
+        .collage-section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .collage-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 40px;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .collage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .collage-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .collage-item:hover {
+            transform: translateY(-5px) rotate(2deg);
+        }
+
+        .collage-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .collage-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Video Section */
+        .video-section {
+            padding: 60px 20px;
+            text-align: center;
+            background: linear-gradient(rgba(10, 10, 30, 0.9), rgba(20, 20, 50, 0.9));
+        }
+
+        .video-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .video-prompt {
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 30px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .video-prompt:hover {
+            color: var(--soft-pink);
+            transform: scale(1.05);
+        }
+
+        .video-wrapper {
+            display: none;
+            margin-top: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Final Message */
+        .final-section {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(rgba(20, 20, 50, 0.9), rgba(10, 10, 30, 1));
+        }
+
+        .final-message {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: var(--soft-pink);
+            max-width: 600px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease;
+        }
+
+        .final-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Audio Control */
+        .audio-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .audio-control:hover {
+            background: rgba(0, 0, 0, 0.7);
+            transform: scale(1.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .birthday-title {
+                font-size: 3rem;
+            }
+            
+            .letter-text {
+                font-size: 1.5rem;
+                padding-left: 20px;
+            }
+            
+            .letter-section {
+                padding: 40px 20px;
+                margin: 20px;
+            }
+            
+            .collage-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+            
+            .emoji {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .birthday-title {
+                font-size: 2.5rem;
+            }
+            
+            .date {
+                font-size: 1.2rem;
+            }
+            
+            .letter-text {
+                font-size: 1.3rem;
+            }
+            
+            .final-message {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Opening Section -->
+    <section class="opening-section">
+        <h1 class="birthday-title">Happy Birthday</h1>
+        <div class="date">To Someone Special</div>
+        <div class="scroll-indicator">Scroll down for your surprise 💝</div>
+    </section>
+
+    <!-- Letter Section -->
+    <section class="letter-section">
+        <div class="letter-container">
+            <div class="letter-text" id="letterText"></div>
+            <span class="typewriter-cursor" id="cursor"></span>
+        </div>
+    </section>
+
+    <!-- Emoji Section -->
+    <div class="emoji-container" id="emojiContainer">
+        <!-- Emojis will be added here by JavaScript -->
+    </div>
+
+    <div class="emoji-message" id="emojiMessage"></div>
+
+    <!-- Photo Collage -->
+    <section class="collage-section">
+        <h2 class="collage-title">Beautiful Memories</h2>
+        <div class="collage-grid" id="collageGrid">
+            <!-- Photos will be added here by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-section">
+        <div class="video-container">
+            <div class="video-prompt" id="videoPrompt">
+                Play this ▶️
+            </div>
+            <div class="video-wrapper" id="videoWrapper">
+                <!-- VIDEO URL TO BE REPLACED -->
+                <video id="birthdayVideo" controls>
+                    <source src="YOUR_VIDEO_URL_HERE" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Message -->
+    <section class="final-section">
+        <div class="final-message" id="finalMessage"></div>
+    </section>
+
+    <!-- Audio Control -->
+    <button class="audio-control" id="audioControl">
+        🔊
+    </button>
+
+    <!-- Background Music -->
+    <!-- REPLACE 'YOUR_BIRTHDAY_SONG_URL_HERE' with actual song URL -->
+    <audio id="bgMusic" loop>
+        <source src="YOUR_BIRTHDAY_SONG_URL_HERE" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        // Your letter content - EDIT THIS WITH YOUR ACTUAL LETTER
+        const letterContent = `My Dearest,
+
+This is your special day, and I wanted to create something 
+as unique and wonderful as you are. Every moment with you 
+has been a gift, and today, I celebrate the incredible 
+person you are.
+
+You bring light into every room you enter, laughter to every 
+conversation, and love to every heart you touch. Today is 
+about honoring you and all the joy you bring to the world.
+
+Remember that time we... [Your personal memory here]
+
+And that other moment when... [Another memory]
+
+You are loved more than words can express, cherished beyond 
+measure, and celebrated today and always.
+
+With all my love,
+Always`;
+
+        // Emoji messages - EDIT THESE WITH YOUR PERSONAL MESSAGES
+        const emojiMessages = {
+            '❤️': 'You are loved more than you know',
+            '🎂': 'Sweetest birthday wishes just for you',
+            '🎈': 'May your day be filled with joy',
+            '🎁': 'You are the greatest gift',
+            '🌟': 'You shine brighter than any star',
+            '💝': 'My heart is always with you',
+            '🥂': 'To many more beautiful years',
+            '💌': 'Every moment with you is precious'
+        };
+
+        // Photo URLs for collage - REPLACE THESE WITH YOUR PHOTO URLs
+        const photoUrls = [
+            'YOUR_PHOTO_1_URL_HERE',
+            'YOUR_PHOTO_2_URL_HERE', 
+            'YOUR_PHOTO_3_URL_HERE',
+            'YOUR_PHOTO_4_URL_HERE',
+            'YOUR_PHOTO_5_URL_HERE',
+            'YOUR_PHOTO_6_URL_HERE'
+        ];
+
+        // Final message - EDIT THIS WITH YOUR FINAL MESSAGE
+        const finalMessageContent = "Forever and always, my love. 💙";
+
+        // Typewriter effect for letter
+        async function typeLetter() {
+            const letterElement = document.getElementById('letterText');
+            const cursor = document.getElementById('cursor');
+            const text = letterContent;
+            let index = 0;
+            
+            cursor.style.animation = 'none';
+            
+            function type() {
+                if (index < text.length) {
+                    letterElement.innerHTML = text.substring(0, index + 1);
+                    index++;
+                    setTimeout(type, 50); // Adjust speed here
+                } else {
+                    cursor.style.animation = 'blink 1s infinite';
+                    createEmojis();
+                    loadCollage();
+                }
+            }
+            
+            // Start typing after a short delay
+            setTimeout(type, 1000);
+        }
+
+        // Create interactive emojis
+        function createEmojis() {
+            const container = document.getElementById('emojiContainer');
+            const emojis = Object.keys(emojiMessages);
+            
+            emojis.forEach(emoji => {
+                const emojiElement = document.createElement('div');
+                emojiElement.className = 'emoji';
+                emojiElement.textContent = emoji;
+                emojiElement.style.animationDelay = Math.random() + 's';
+                
+                emojiElement.addEventListener('click', () => {
+                    showEmojiMessage(emojiMessages[emoji]);
+                });
+                
+                container.appendChild(emojiElement);
+            });
+        }
+
+        // Show emoji message
+        function showEmojiMessage(message) {
+            const messageElement = document.getElementById('emojiMessage');
+            messageElement.textContent = message;
+            messageElement.style.display = 'block';
+            
+            setTimeout(() => {
+                messageElement.style.display = 'none';
+            }, 2000);
+        }
+
+        // Load photo collage
+        function loadCollage() {
+            const grid = document.getElementById('collageGrid');
+            
+            photoUrls.forEach(url => {
+                const item = document.createElement('div');
+                item.className = 'collage-item';
+                const img = document.createElement('img');
+                img.src = url;
+                img.alt = 'Beautiful memory';
+                item.appendChild(img);
+                grid.appendChild(item);
+            });
+        }
+
+        // Video controls
+        function setupVideo() {
+            const prompt = document.getElementById('videoPrompt');
+            const wrapper = document.getElementById('videoWrapper');
+            const video = document.getElementById('birthdayVideo');
+            const bgMusic = document.getElementById('bgMusic');
+            
+            prompt.addEventListener('click', () => {
+                prompt.style.display = 'none';
+                wrapper.style.display = 'block';
+                
+                // Pause background music when video plays
+                video.addEventListener('play', () => {
+                    bgMusic.pause();
+                });
+                
+                // Resume background music when video ends
+                video.addEventListener('ended', () => {
+                    bgMusic.play();
+                    showFinalMessage();
+                });
+                
+                video.play();
+            });
+        }
+
+        // Show final message
+        function showFinalMessage() {
+            const finalMessage = document.getElementById('finalMessage');
+            finalMessage.textContent = finalMessageContent;
+            
+            setTimeout(() => {
+                finalMessage.classList.add('show');
+            }, 500);
+            
+            // Scroll to final message
+            setTimeout(() => {
+                finalMessage.scrollIntoView({ behavior: 'smooth' });
+            }, 1000);
+        }
+
+        // Audio control
+        function setupAudio() {
+            const bgMusic = document.getElementById('bgMusic');
+            const audioControl = document.getElementById('audioControl');
+            
+            // Try to autoplay
+            bgMusic.volume = 0.5;
+            bgMusic.play().catch(e => {
+                console.log("Autoplay prevented");
+                audioControl.textContent = "🔇";
+            });
+            
+            audioControl.addEventListener('click', () => {
+                if (bgMusic.paused) {
+                    bgMusic.play();
+                    audioControl.textContent = "🔊";
+                } else {
+                    bgMusic.pause();
+                    audioControl.textContent = "🔇";
+                }
+            });
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            setupAudio();
+            typeLetter();
+            setupVideo();
+            
+            // Show scroll indicator
+            setTimeout(() => {
+                document.querySelector('.scroll-indicator').style.opacity = '1';
+            }, 2000);
+        });
+    </script>
+</body>
+  </html>
